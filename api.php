@@ -2,7 +2,7 @@
 	/*
 		This is a small API for ShareX in order to upload your images to your own domain.
 	*/
-	
+
 	/*
 		---CONFIG---
 	*/
@@ -10,27 +10,27 @@
 		$fileFormName = ""; // File form name in ShareX. Try to make it as random as you can (possibly with a password generator).
 		$argumentName = ""; //Argument Name in ShareX. Try to make it as random as you can (possibly with a password generator).
 		$argumentValue = ""; //Argument Value in ShareX. Try to make it as random as you can (possibly with a password generator).
-	
+
 	//General:
-		$domain = "http://example.com"; //The URL to later echo back to ShareX. Don't forget the "/" in the end.
+		$domain = "http://example.com/"; //The URL to later echo back to ShareX. Don't forget the "/" in the end.
 		$chars = 3; // Amount of characters filder&folder names should have. The more users you have, the higher the number should be.
 		$namingMode = 3; /* Mode for generating folder&file names.
 							1 - Generated names will consist of only numbers.
 							2 - Generated names will consist of only lowercase letters.
 							3 - Generated names will consist of lowercase letters and numbers.
 						*/
-		$generateFolders = 1; //If you enable this feature, URLS will consist of two random names 
+		$generateFolders = 1; //If you enable this feature, URLS will consist of two random names
 							  //(example: example.com/21321/23123.png), this is to prevent "random picture" generators.
 							  //The feature works as a bool (0=off 1=on)
 	/*
 		---END OF CONFIG---
 	*/
-	
+
 	function generateFolderName() {
 		global $namingMode, $chars;
 		$l = 'abcdefghijklmnopqrstuvwxyz';
 		$n = '0123456789';
-		
+
 		if ($namingMode == 1) {
 			$gf = substr(str_shuffle($n), 0, $chars);
 		} else if ($namingMode == 2) {
@@ -38,7 +38,7 @@
 		} else if ($namingMode == 3) {
 			$gf = substr(str_shuffle($n . $l), 0, $chars);
 		}
-		
+
 		if (file_exists($gf . '/')) {
 			return generateFolderName();
 		} else {
@@ -46,12 +46,12 @@
 			return $gf . '/';
 		}
 	}
-	
+
 	function generateFileName($name) {
 		global $namingMode, $chars;
 		$l = 'abcdefghijklmnopqrstuvwxyz';
 		$n = '0123456789';
-		
+
 		if ($namingMode == 1) {
 			$gn = substr(str_shuffle($n), 0, $chars) . '.' . end(explode(".",$name));
 		} else if ($namingMode == 2) {
@@ -59,7 +59,7 @@
 		} else if ($namingMode == 3) {
 			$gn = substr(str_shuffle($n . $l), 0, $chars) . '.' . end(explode(".",$name));
 		}
-		
+
 		if ($generateFolders == 0) {
 			if (file_exists($gn)) {
 				return generateFileName($n);
@@ -70,7 +70,7 @@
 			return $gn;
 		}
 	}
-	
+
 	if (isset($_POST)) {
 		if (is_uploaded_file($_FILES[$fileFormName]['tmp_name']) && $_POST[$argumentName] == $argumentValue) {
 			$allowedExts = array("gif", "jpeg", "jpg", "png", "PNG", "JPG", "JPEG");
