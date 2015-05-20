@@ -87,16 +87,15 @@
 					echo "File type not allowed.";
 				} else {
 					$un = generateFileName($_FILES[$fileFormName]['name']);
+					global $domain;
 					if ($generateFolders == 1) {
 						$ud = generateFolderName();
 						if (move_uploaded_file($_FILES[$fileFormName]["tmp_name"], $ud. $un)) {
-							global $domain;
 							$url = $domain . $ud . $un;
 							echo $url;
 						}
 					} else if ($generateFolders == 0) {
 						if (move_uploaded_file($_FILES[$fileFormName]["tmp_name"], $un)) {
-							global $domain;
 							$url = $domain . $un;
 							echo $url;
 						}
