@@ -48,7 +48,7 @@
 	}
 
 	function generateFileName($name) {
-		global $namingMode, $chars;
+		global $namingMode, $chars, $generateFolders;
 		$l = 'abcdefghijklmnopqrstuvwxyz';
 		$n = '0123456789';
 
