@@ -18,3 +18,6 @@ Now, in ShareX:
 
 ## Support
 In case of errors, I'm willing to help via Twitter (@app1enerd) or via email (ron3353@gmail.com)
+
+## Credits
+Adjective and Animal list provided by gfycat.

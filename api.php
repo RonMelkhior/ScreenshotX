@@ -18,8 +18,9 @@
 							1 - Generated names will consist of only numbers.
 							2 - Generated names will consist of only lowercase letters.
 							3 - Generated names will consist of lowercase letters and numbers.
+							4 - Generated names will be in an AdjectiveAnimal order. Inspired from gfycat. (txts provided by gfycat, thanks!)
 						*/
-		$generateFolders = 1; //If you enable this feature, URLS will consist of two random names
+		$generateFolders = 0; //If you enable this feature, URLS will consist of two random names
 							  //(example: example.com/21321/23123.png), this is to prevent "random picture" generators.
 							  //The feature works as a bool (0=off 1=on)
 	/*
@@ -37,6 +38,17 @@
 			$gf = substr(str_shuffle($l), 0, $chars);
 		} else if ($namingMode == 3) {
 			$gf = substr(str_shuffle($n . $l), 0, $chars);
+		} else if ($namingMode == 4) {
+			$adjs = file("adjectives.txt"); 
+			$amls = file("animals.txt");
+			
+			$adjsOne = $adjs[rand(0, count($adjs) - 1)];
+			$adjsOne = trim(preg_replace('/\s+/', ' ', $adjsOne));
+			$adjsOne = ucwords($adjsOne);
+			$aml = $amls[rand(0, count($amls) - 1)];
+			$aml = trim(preg_replace('/\s+/', ' ', $aml));
+			$aml = ucwords($aml);
+			$gf = $adjsOne . $aml;
 		}
 
 		if (file_exists($gf . '/')) {
@@ -58,6 +70,17 @@
 			$gn = substr(str_shuffle($l), 0, $chars) . '.' . end(explode(".",$name));
 		} else if ($namingMode == 3) {
 			$gn = substr(str_shuffle($n . $l), 0, $chars) . '.' . end(explode(".",$name));
+		} else if ($namingMode == 4) {
+			$adjs = file("adjectives.txt"); 
+			$amls = file("animals.txt");
+			
+			$adjsOne = $adjs[rand(0, count($adjs) - 1)];
+			$adjsOne = trim(preg_replace('/\s+/', ' ', $adjsOne));
+			$adjsOne = ucwords($adjsOne);
+			$aml = $amls[rand(0, count($amls) - 1)];
+			$aml = trim(preg_replace('/\s+/', ' ', $aml));
+			$aml = ucwords($aml);
+			$gn = $adjsOne . $aml . '.' . end(explode(".",$name));
 		}
 
 		if ($generateFolders == 0) {
