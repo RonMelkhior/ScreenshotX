@@ -85,7 +85,7 @@
 
 		if ($generateFolders == 0) {
 			if (file_exists($gn)) {
-				return generateFileName($n);
+				return generateFileName($name);
 			} else {
 				return $gn;
 			}
