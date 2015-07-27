@@ -107,7 +107,7 @@
 			|| ($_FILES[$fileFormName]["type"] == "image/png"))
 			&& in_array($extension, $allowedExts)) {
 				if ($_FILES[$fileFormName]["error"] > 0) {
-					echo "File type not allowed.";
+					echo "An unexpected error happened.";
 				} else {
 					$un = generateFileName($_FILES[$fileFormName]['name']);
 					global $domain;
@@ -116,14 +116,20 @@
 						if (move_uploaded_file($_FILES[$fileFormName]["tmp_name"], $ud. $un)) {
 							$url = $domain . $ud . $un;
 							echo $url;
+						} else {
+							echo "An unexpected error happened.";
 						}
 					} else if ($generateFolders == 0) {
 						if (move_uploaded_file($_FILES[$fileFormName]["tmp_name"], $un)) {
 							$url = $domain . $un;
 							echo $url;
+						} else {
+							echo "An unexpected error happened.";
 						}
 					}
 				}
+			} else {
+				echo "File type not allowed.";
 			}
 		}
 	}
